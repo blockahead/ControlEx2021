@@ -275,7 +275,7 @@
     
         <section >
             
-            <h2><a id="user-content-dcモータの速度制御-9437" class="anchor" href="#dcモータの速度制御-9437" aria-hidden="true"></a>DCモータの速度制御</h2>
+            <h2><a id="user-content-dcモータの速度制御-9452" class="anchor" href="#dcモータの速度制御-9452" aria-hidden="true"></a>DCモータの速度制御</h2>
 
             </section>
     
@@ -285,7 +285,7 @@
     
         <section >
             
-            <h3><a id="user-content-やること-9437" class="anchor" href="#やること-9437" aria-hidden="true"></a>やること</h3>
+            <h3><a id="user-content-やること-9452" class="anchor" href="#やること-9452" aria-hidden="true"></a>やること</h3>
 <ul>
 <li>MATLABから現実世界を動かす
 <ul>
@@ -306,7 +306,7 @@
     
         <section >
             
-            <h3><a id="user-content-matlabから現実世界を動かす-9437" class="anchor" href="#matlabから現実世界を動かす-9437" aria-hidden="true"></a>MATLABから現実世界を動かす</h3>
+            <h3><a id="user-content-matlabから現実世界を動かす-9452" class="anchor" href="#matlabから現実世界を動かす-9452" aria-hidden="true"></a>MATLABから現実世界を動かす</h3>
 <p>とりあえず繋いでみる</p>
 <p>↓制御対象</p>
 
@@ -318,7 +318,7 @@
     
         <section >
             
-            <h3><a id="user-content-制御がないと何がダメ？-9437" class="anchor" href="#制御がないと何がダメ？-9437" aria-hidden="true"></a>制御がないと何がダメ？</h3>
+            <h3><a id="user-content-制御がないと何がダメ？-9452" class="anchor" href="#制御がないと何がダメ？-9452" aria-hidden="true"></a>制御がないと何がダメ？</h3>
 <p>電圧 vs 回転数がわかれば目標回転数を出せるはず</p>
 <p>$$\dot{\theta}(t)=\omega(t)=\frac{1}{k_E} v(t);~~k_E は逆起電力定数$$</p>
 <p class="fragment fade">実際には上手く行かない</p>
@@ -336,7 +336,7 @@
     
         <section >
             
-            <h3><a id="user-content-フィードバック制御-4037" class="anchor" href="#フィードバック制御-4037" aria-hidden="true"></a>フィードバック制御</h3>
+            <h3><a id="user-content-フィードバック制御-4052" class="anchor" href="#フィードバック制御-4052" aria-hidden="true"></a>フィードバック制御</h3>
 <p>プラント$G(s)$の応答を使って入力$u$を決める方法</p>
 <img src="img/Feedback.png" style="border:none;" />
 <ol>
@@ -354,7 +354,7 @@
     
         <section >
             
-            <h3><a id="user-content-電気モータのモデル化-6928" class="anchor" href="#電気モータのモデル化-6928" aria-hidden="true"></a>電気モータのモデル化</h3>
+            <h3><a id="user-content-電気モータのモデル化-6943" class="anchor" href="#電気モータのモデル化-6943" aria-hidden="true"></a>電気モータのモデル化</h3>
 <img src="img/MotorEOM.png" style="border:none;" />
 <div style="font-size:20px; line-height:1em;">川田 昌克, 物理法則に基づくモデリング(基礎編,<特集>初学者のための図解でわかる制御工学I), システム／制御／情報, 2012, 56 巻, 4 号, p. 166-169, 公開日 2017/04/15, Online ISSN 2424-1806, Print ISSN 0916-1600, https://doi.org/10.11509/isciesci.56.4_166, <a href="https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja">https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja</a></div>
             </section>
@@ -365,7 +365,7 @@
     
         <section >
             
-            <h3><a id="user-content-電気的特性と機械的特性-6518" class="anchor" href="#電気的特性と機械的特性-6518" aria-hidden="true"></a>電気的特性と機械的特性</h3>
+            <h3><a id="user-content-電気的特性と機械的特性-6533" class="anchor" href="#電気的特性と機械的特性-6533" aria-hidden="true"></a>電気的特性と機械的特性</h3>
 <p>$$
 \left\{ \begin{array}{rcl}
 v_a &amp;=&amp; R_a i_a + L_a \frac{di_a}{dt} + e_b \\
@@ -387,7 +387,7 @@ $$\mu_m: モータの粘性摩擦係数,~~k_t: トルク定数,~~\tau_L: 負荷�
     
         <section >
             
-            <h3><a id="user-content-モータの運動方程式-7230" class="anchor" href="#モータの運動方程式-7230" aria-hidden="true"></a>モータの運動方程式</h3>
+            <h3><a id="user-content-モータの運動方程式-7245" class="anchor" href="#モータの運動方程式-7245" aria-hidden="true"></a>モータの運動方程式</h3>
 <p>$L_a \frac{di_a}{dt} \approx 0$として近似<span style="font-size:24px;">（電気的反応は機械的反応に比べて十分速い）</span></p>
 <p>$$
 J_m \ddot{\theta}_m + \bar{\mu}_m \dot{\theta}_m + \tau_L = \frac{k_t}{R_a} v_a
@@ -407,12 +407,12 @@ $$
     
         <section >
             
-            <h3><a id="user-content-伝達関数-4886" class="anchor" href="#伝達関数-4886" aria-hidden="true"></a>伝達関数</h3>
-<h4><a id="user-content-電圧→角度（2次遅れ系）-4171" class="anchor" href="#電圧→角度（2次遅れ系）-4171" aria-hidden="true"></a>電圧→角度（2次遅れ系）</h4>
+            <h3><a id="user-content-伝達関数-4901" class="anchor" href="#伝達関数-4901" aria-hidden="true"></a>伝達関数</h3>
+<h4><a id="user-content-電圧→角度（2次遅れ系）-4186" class="anchor" href="#電圧→角度（2次遅れ系）-4186" aria-hidden="true"></a>電圧→角度（2次遅れ系）</h4>
 <p>$$
 \frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s}
 $$</p>
-<h4><a id="user-content-電圧→角速度（1次遅れ系）-4154" class="anchor" href="#電圧→角速度（1次遅れ系）-4154" aria-hidden="true"></a>電圧→角速度（1次遅れ系）</h4>
+<h4><a id="user-content-電圧→角速度（1次遅れ系）-4169" class="anchor" href="#電圧→角速度（1次遅れ系）-4169" aria-hidden="true"></a>電圧→角速度（1次遅れ系）</h4>
 <p>$$
 \frac{\Omega}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s + R_a \bar{\mu}_g} = \frac{K}{Ts + 1}
 $$</p>
@@ -425,7 +425,7 @@ $$</p>
     
         <section >
             
-            <h3><a id="user-content-１次遅れ伝達関数の時間応答-3637" class="anchor" href="#１次遅れ伝達関数の時間応答-3637" aria-hidden="true"></a>１次遅れ伝達関数の時間応答</h3>
+            <h3><a id="user-content-１次遅れ伝達関数の時間応答-3652" class="anchor" href="#１次遅れ伝達関数の時間応答-3652" aria-hidden="true"></a>１次遅れ伝達関数の時間応答</h3>
 <img src="img/TimeTrans.png" style="border:none;width:40%;float:left;padding-left:100px;padding-right:100px;box-shadow:none;" /> 
 <div style="float:left;padding-top:50px;text-align:left;">
 $K: 定常ゲイン$<br />
@@ -455,7 +455,7 @@ $L: むだ時間$
     
         <section >
             
-            <h3><a id="user-content-pid制御系-2029" class="anchor" href="#pid制御系-2029" aria-hidden="true"></a>PI(D)制御系</h3>
+            <h3><a id="user-content-pid制御系-2044" class="anchor" href="#pid制御系-2044" aria-hidden="true"></a>PI(D)制御系</h3>
 <p>$$C _{Parallel}(s) = \left(K_P + \frac{1}{s} K_I + K_D s \right) E(s)$$
 $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right) E(s)$$</p>
 
@@ -467,13 +467,13 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right) E(s)$$</p>
     
         <section >
             
-            <h3><a id="user-content-パラメータの決め方-1584" class="anchor" href="#パラメータの決め方-1584" aria-hidden="true"></a>パラメータの決め方</h3>
+            <h3><a id="user-content-パラメータの決め方-1599" class="anchor" href="#パラメータの決め方-1599" aria-hidden="true"></a>パラメータの決め方</h3>
 <ul>
 <li>（Ziegler-Nicholsの）限界感度法</li>
 <li>（Ziegler-Nicholsの）過渡応答法</li>
 <li>CHR法</li>
 </ul>
-<h4><a id="user-content-chr法のパラメータ-380" class="anchor" href="#chr法のパラメータ-380" aria-hidden="true"></a>CHR法のパラメータ</h4>
+<h4><a id="user-content-chr法のパラメータ-395" class="anchor" href="#chr法のパラメータ-395" aria-hidden="true"></a>CHR法のパラメータ</h4>
 <table>
 <thead>
 <tr>
@@ -512,9 +512,9 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right) E(s)$$</p>
     
         <section >
             
-            <h3><a id="user-content-シミュレーションで確認-131" class="anchor" href="#シミュレーションで確認-131" aria-hidden="true"></a>シミュレーションで確認</h3>
+            <h3><a id="user-content-シミュレーションで確認-146" class="anchor" href="#シミュレーションで確認-146" aria-hidden="true"></a>シミュレーションで確認</h3>
 <p>$\Downarrow$</p>
-<h3><a id="user-content-実機で確認-103" class="anchor" href="#実機で確認-103" aria-hidden="true"></a>実機で確認</h3>
+<h3><a id="user-content-実機で確認-118" class="anchor" href="#実機で確認-118" aria-hidden="true"></a>実機で確認</h3>
 
             </section>
     
@@ -524,7 +524,7 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right) E(s)$$</p>
     
         <section >
             
-            <h2><a id="user-content-参考資料-20" class="anchor" href="#参考資料-20" aria-hidden="true"></a>参考資料</h2>
+            <h2><a id="user-content-参考資料-35" class="anchor" href="#参考資料-35" aria-hidden="true"></a>参考資料</h2>
 
             </section>
     
@@ -534,7 +534,7 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right) E(s)$$</p>
     
         <section >
             
-            <h3><a id="user-content-ロータリーエンコーダの動作-9437" class="anchor" href="#ロータリーエンコーダの動作-9437" aria-hidden="true"></a>ロータリーエンコーダの動作</h3>
+            <h3><a id="user-content-ロータリーエンコーダの動作-9452" class="anchor" href="#ロータリーエンコーダの動作-9452" aria-hidden="true"></a>ロータリーエンコーダの動作</h3>
 <img src="img/RotaryEncoder.png" style="border:none;" />
             </section>
     
