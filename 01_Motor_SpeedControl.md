@@ -5,6 +5,7 @@ slideNumber: true
 enableMenu: true
 progress: false
 center: true
+history: false
 title: "DCモータの速度制御"
 ---
 
