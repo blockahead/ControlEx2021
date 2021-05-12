@@ -323,8 +323,12 @@
         <section >
             
             <h2><a id="user-content-matlabから現実世界を動かす" class="anchor" href="#matlabから現実世界を動かす" aria-hidden="true"></a>MATLABから現実世界を動かす</h2>
-<p>とりあえず繋いでみる</p>
-<p>↓制御対象</p>
+<ul>
+<li>とりあえず繋いでみる</li>
+<li>回して触ってみる</li>
+</ul>
+<img src="img/Openloop.png" style="width:60%;" />
+<img src="img/System.png" style="width:60%;" />
 
             </section>
     
@@ -353,10 +357,11 @@
         <section >
             
             <h2><a id="user-content-フィードバック制御" class="anchor" href="#フィードバック制御" aria-hidden="true"></a>フィードバック制御</h2>
-<p>プラント$G(s)$の応答を使って入力$u$を決める方法</p>
-<img src="img/Feedback.png" />
+<p>プラント$G$の応答$y$を使って入力$u$を決める方法</p>
+<img src="img/Feedback.png" style="width:60%;" />
+<p><span style="color:red;">一巡伝達関数$G_{Closed}=1$となることが究極の目的</span></p>
 <ol>
-<li>伝達関数$G(s)$をつくる</li>
+<li>伝達関数$G(s)$をつくる（モデリング）</li>
 <li>$G(s)$のパラメータを求める（プラント同定）</li>
 <li>コントローラ$C(s)$を決める</li>
 <li>（コントローラの再調整）</li>
@@ -370,9 +375,10 @@
     
         <section >
             
-            <h2><a id="user-content-電気モータのモデル化" class="anchor" href="#電気モータのモデル化" aria-hidden="true"></a>電気モータのモデル化</h2>
+            <h2><a id="user-content-電気モータのモデリング" class="anchor" href="#電気モータのモデリング" aria-hidden="true"></a>電気モータのモデリング</h2>
 <img src="img/MotorEOM.png" />
 <div class="ref">川田 昌克, 物理法則に基づくモデリング(基礎編,<特集>初学者のための図解でわかる制御工学I), システム／制御／情報, 2012, 56 巻, 4 号, p. 166-169, 公開日 2017/04/15, Online ISSN 2424-1806, Print ISSN 0916-1600, https://doi.org/10.11509/isciesci.56.4_166, <a href="https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja">https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja</a></div>
+
             </section>
     
 
@@ -395,6 +401,7 @@ $v_a:$ 端子電圧，$i_a:$ 電流，$R_a:$ 電機子抵抗，$L_a:$ 電機子�
 <p>$k_b:$ 逆起電力定数，$\theta_m:$ モータ角度，$J_m:$ モータの慣性モーメント，$\tau_m:$ 発生トルク</p>
 <p>$\mu_m:$ モータの粘性摩擦係数，$k_t:$ トルク定数，$\tau_L:$ 負荷トルク</p>
 </div>
+
             </section>
     
 
@@ -422,10 +429,10 @@ $$
     
         <section >
             
-            <h2><a id="user-content-伝達関数" class="anchor" href="#伝達関数" aria-hidden="true"></a>伝達関数</h2>
+            <h2><a id="user-content-伝達関数と標準形" class="anchor" href="#伝達関数と標準形" aria-hidden="true"></a>伝達関数と標準形</h2>
 <h3><a id="user-content-電圧→角度（2次遅れ系）" class="anchor" href="#電圧→角度（2次遅れ系）" aria-hidden="true"></a>電圧→角度（2次遅れ系）</h3>
 <p>$$
-\frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s}
+\frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s} = \frac{K {\omega_n}^2}{s^2 + 2 \zeta \omega_n s + {\omega_n}^2}
 $$</p>
 <h3><a id="user-content-電圧→角速度（1次遅れ系）" class="anchor" href="#電圧→角速度（1次遅れ系）" aria-hidden="true"></a>電圧→角速度（1次遅れ系）</h3>
 <p>$$
@@ -440,7 +447,7 @@ $$</p>
     
         <section >
             
-            <h2><a id="user-content-１次遅れ伝達関数の時間応答" class="anchor" href="#１次遅れ伝達関数の時間応答" aria-hidden="true"></a>１次遅れ伝達関数の時間応答</h2>
+            <h2><a id="user-content-1次遅れ伝達関数のプラント同定" class="anchor" href="#1次遅れ伝達関数のプラント同定" aria-hidden="true"></a>1次遅れ伝達関数のプラント同定</h2>
 <img src="img/TimeTrans.png" style="width:40%;float:left;padding-left:100px;padding-right:100px;" /> 
 <div style="float:left;padding-top:50px;text-align:left;">
 $K: 定常ゲイン$<br />
@@ -448,10 +455,11 @@ $T: 時定数$<br />
 $L: むだ時間$
 </div>
 <ul>
-<li>1次遅れ系ではステップ応答の$t=0$での接線と$K$が交わる時間が時定数$T$となる．</li>
-<li>$t=T$のとき，$y(T)=0.632K$</li>
+<li>1次遅れ系ではステップ応答の$t=L$での接線と定常応答$y(\infty)=K$が交わる時間が時定数$T$</li>
+<li>$y(L+t)=K(1-e^{-1/T})$より$y(L+T)=0.63K$</li>
 </ul>
-<p>プラント同定をしてみる（$K$と$T$を求める）</p>
+<p>$\Downarrow$</p>
+<p><strong>プラント同定をしてみる</strong>（$K,T,L$を求める）</p>
 
             </section>
     
@@ -462,6 +470,7 @@ $L: むだ時間$
         <section >
             
             <h2><a id="user-content-matlabsimulinkで確認" class="anchor" href="#matlabsimulinkで確認" aria-hidden="true"></a>MATLAB/Simulinkで確認</h2>
+<img src="img/Identification.png" style="width:80%;" />
 
             </section>
     
@@ -528,6 +537,7 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right)$$</p>
 </tbody>
 </table>
 <div class="ref"><a href="https://ja.wikipedia.org/wiki/PID%E5%88%B6%E5%BE%A1">Wikipedia PID制御</a></div>
+
             </section>
     
 
@@ -537,6 +547,7 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right)$$</p>
         <section >
             
             <h2><a id="user-content-シミュレーションで確認" class="anchor" href="#シミュレーションで確認" aria-hidden="true"></a>シミュレーションで確認</h2>
+<img src="img/ClosedloopSim.png" />
 <p>$\Downarrow$</p>
 <h2><a id="user-content-実機で確認" class="anchor" href="#実機で確認" aria-hidden="true"></a>実機で確認</h2>
 
@@ -559,7 +570,44 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right)$$</p>
         <section >
             
             <h2><a id="user-content-ロータリーエンコーダの動作" class="anchor" href="#ロータリーエンコーダの動作" aria-hidden="true"></a>ロータリーエンコーダの動作</h2>
-<img src="img/RotaryEncoder.png" />
+<img src="img/RotaryEncoder.png" style="width:60%;" />
+<br />
+<ul>
+<li>一定の角度ごとに生成されるパルスの数をカウントすることで角度を計測できる</li>
+<li>回転方向はA相とB相の位相により判別する</li>
+</ul>
+
+            </section>
+    
+
+
+
+    
+        <section >
+            
+            <h2><a id="user-content-prepostは何をしているのか" class="anchor" href="#prepostは何をしているのか" aria-hidden="true"></a>Pre/Postは何をしているのか</h2>
+<ul>
+<li>Pre
+<ul>
+<li>単位変換（入力バイアスの除去）</li>
+<li>物理値からD/A電圧への変換</li>
+<li>物理値からPWMへの変換</li>
+</ul>
+</li>
+<li>Post
+<ul>
+<li>A/D電圧から物理値への変換</li>
+<li>パルスから物理値への変換（Pulse→rad）</li>
+<li>単位変換</li>
+</ul>
+</li>
+<li>両方
+<ul>
+<li>状態に依存しない非線形要素の補償</li>
+</ul>
+</li>
+</ul>
+
             </section>
     
 
