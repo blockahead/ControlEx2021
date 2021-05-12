@@ -43,9 +43,12 @@ title: "DCモータの速度制御"
 
 ## MATLABから現実世界を動かす
 
-とりあえず繋いでみる
+- とりあえず繋いでみる
+- 回して触ってみる
 
-↓制御対象
+<img src="img/Openloop.png" style="width:60%;" />
+
+<img src="img/System.png" style="width:60%;" />
 
 ---
 
@@ -63,18 +66,19 @@ $$\dot{\theta}(t)=\omega(t)=\frac{1}{k_E} v(t);~~k_E は逆起電力定数$$
 ---
 
 ## フィードバック制御
-プラント$G(s)$の応答を使って入力$u$を決める方法
+プラント$G$の応答$y$を使って入力$u$を決める方法
 
-<img src="img/Feedback.png" />
+<img src="img/Feedback.png" style="width:60%;" />
 
-1. 伝達関数$G(s)$をつくる
+<span style="color:red;">一巡伝達関数$G_{Closed}=1$となることが究極の目的</span>
+1. 伝達関数$G(s)$をつくる（モデリング）
 1. $G(s)$のパラメータを求める（プラント同定）
 1. コントローラ$C(s)$を決める
 1. （コントローラの再調整）
 
 ---
 
-## 電気モータのモデル化
+## 電気モータのモデリング
 <img src="img/MotorEOM.png" />
 
 <div class="ref">川田 昌克, 物理法則に基づくモデリング(基礎編,<特集>初学者のための図解でわかる制御工学I), システム／制御／情報, 2012, 56 巻, 4 号, p. 166-169, 公開日 2017/04/15, Online ISSN 2424-1806, Print ISSN 0916-1600, https://doi.org/10.11509/isciesci.56.4_166, <a href="https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja">https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja</a></div>
@@ -116,10 +120,10 @@ $$
 
 ---
 
-## 伝達関数
+## 伝達関数と標準形
 ### 電圧→角度（2次遅れ系）
 $$
-\frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s}
+\frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s} = \frac{K {\omega_n}^2}{s^2 + 2 \zeta \omega_n s + {\omega_n}^2}
 $$
 
 ### 電圧→角速度（1次遅れ系）
@@ -129,7 +133,7 @@ $$
 
 ---
 
-## １次遅れ伝達関数の時間応答
+## 1次遅れ伝達関数のプラント同定
 <img src="img/TimeTrans.png" style="width:40%;float:left;padding-left:100px;padding-right:100px;" /> 
 <div style="float:left;padding-top:50px;text-align:left;">
 $K: 定常ゲイン$<br />
@@ -137,14 +141,18 @@ $T: 時定数$<br />
 $L: むだ時間$
 </div>
 
-- 1次遅れ系ではステップ応答の$t=0$での接線と$K$が交わる時間が時定数$T$となる．
-- $t=T$のとき，$y(T)=0.632K$
+- 1次遅れ系ではステップ応答の$t=L$での接線と定常応答$y(\infty)=K$が交わる時間が時定数$T$
+- $y(L+t)=K(1-e^{-1/T})$より$y(L+T)=0.63K$
 
-プラント同定をしてみる（$K$と$T$を求める）
+$\Downarrow$
+
+**プラント同定をしてみる**（$K,T,L$を求める）
 
 ---
 
 ## MATLAB/Simulinkで確認
+
+<img src="img/Identification.png" style="width:80%;" />
 
 ---
 
@@ -175,6 +183,8 @@ $$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right)$$
 
 ## シミュレーションで確認
 
+<img src="img/ClosedloopSim.png" />
+
 $\Downarrow$
 
 ## 実機で確認
@@ -186,4 +196,24 @@ $\Downarrow$
 ---
 
 ## ロータリーエンコーダの動作
-<img src="img/RotaryEncoder.png" />
+
+<img src="img/RotaryEncoder.png" style="width:60%;" />
+<br />
+
+- 一定の角度ごとに生成されるパルスの数をカウントすることで角度を計測できる
+- 回転方向はA相とB相の位相により判別する
+
+---
+
+## Pre/Postは何をしているのか
+
+- Pre
+  - 単位変換（入力バイアスの除去）
+  - 物理値からD/A電圧への変換
+  - 物理値からPWMへの変換
+- Post
+  - A/D電圧から物理値への変換
+  - パルスから物理値への変換（Pulse→rad）
+  - 単位変換
+- 両方
+  - 状態に依存しない非線形要素の補償
