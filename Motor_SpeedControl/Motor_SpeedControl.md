@@ -121,12 +121,12 @@ $$
 ---
 
 ## 伝達関数と標準形
-### 電圧→角度（2次遅れ系）
+### 電圧→角度（2次遅れ系，1型）
 $$
 \frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s} = \frac{K {\omega_n}^2}{s^2 + 2 \zeta \omega_n s + {\omega_n}^2}
 $$
 
-### 電圧→角速度（1次遅れ系）
+### 電圧→角速度（1次遅れ系，0型）
 $$
 \frac{\Omega}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s + R_a \bar{\mu}_g} = \frac{K}{Ts + 1}
 $$

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>DCモータの速度制御</title>
+  <title>DCモータのトルク制御</title>
 
   <meta name="description" content="">
   <meta name="author" content="">
@@ -291,7 +291,7 @@
 .reveal .var {font-size:0.5em; line-height:1em;}
 .reveal .MathJax {font-size:0.8em;}
 </style></head>
-<h1><a id="user-content-dcモータの速度制御" class="anchor" href="#dcモータの速度制御" aria-hidden="true"></a>DCモータの速度制御</h1>
+<h1><a id="user-content-dcモータのトルク制御" class="anchor" href="#dcモータのトルク制御" aria-hidden="true"></a>DCモータのトルク制御</h1>
 
             </section>
     
@@ -322,13 +322,12 @@
     
         <section >
             
-            <h2><a id="user-content-matlabから現実世界を動かす" class="anchor" href="#matlabから現実世界を動かす" aria-hidden="true"></a>MATLABから現実世界を動かす</h2>
+            <h2><a id="user-content-今回の構成" class="anchor" href="#今回の構成" aria-hidden="true"></a>今回の構成</h2>
 <ul>
-<li>とりあえず繋いでみる</li>
-<li>回して触ってみる</li>
+<li>速度制御との違いを確認する</li>
 </ul>
-<img src="img/Openloop.png" style="width:60%;" />
-<img src="img/System.png" style="width:60%;" />
+<img src="img/System_SpeedControl.png" style="width:60%;" />
+<img src="img/System_TorqueControl.png" style="width:60%;" />
 
             </section>
     
@@ -338,44 +337,7 @@
     
         <section >
             
-            <h2><a id="user-content-制御がないと何がダメ？" class="anchor" href="#制御がないと何がダメ？" aria-hidden="true"></a>制御がないと何がダメ？</h2>
-<p>電圧 vs 回転数がわかれば目標回転数を出せるはず</p>
-<p>$$\dot{\theta}(t)=\omega(t)=\frac{1}{k_E} v(t);~~k_E は逆起電力定数$$</p>
-<p class="fragment fade">実際には上手く行かない</p>
-<ul>
-<li class="fragment fade">外乱に対して無力</li>
-<li class="fragment fade">整定までの時間がシステムに依存する</li>
-</ul>
-<p class="fragment fade"><strong>フィードバック制御</strong>を行うことで解決できる</p>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-フィードバック制御" class="anchor" href="#フィードバック制御" aria-hidden="true"></a>フィードバック制御</h2>
-<p>プラント$G$の応答$y$を使って入力$u$を決める方法</p>
-<img src="img/Feedback.png" style="width:60%;" />
-<p><span style="color:red;">一巡伝達関数$G_{Closed}=1$となることが究極の目的</span></p>
-<ol>
-<li>伝達関数$G(s)$をつくる（モデリング）</li>
-<li>$G(s)$のパラメータを求める（プラント同定）</li>
-<li>コントローラ$C(s)$を決める</li>
-<li>（コントローラの再調整）</li>
-</ol>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-電気モータのモデリング" class="anchor" href="#電気モータのモデリング" aria-hidden="true"></a>電気モータのモデリング</h2>
+            <h2><a id="user-content-電気モータのモデリング（再掲）" class="anchor" href="#電気モータのモデリング（再掲）" aria-hidden="true"></a>電気モータのモデリング（再掲）</h2>
 <img src="img/MotorEOM.png" />
 <div class="ref">川田 昌克, 物理法則に基づくモデリング(基礎編,<特集>初学者のための図解でわかる制御工学I), システム／制御／情報, 2012, 56 巻, 4 号, p. 166-169, 公開日 2017/04/15, Online ISSN 2424-1806, Print ISSN 0916-1600, https://doi.org/10.11509/isciesci.56.4_166, <a href="https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja">https://www.jstage.jst.go.jp/article/isciesci/56/4/56_KJ00008019365/_article/-char/ja</a></div>
 
@@ -387,7 +349,7 @@
     
         <section >
             
-            <h2><a id="user-content-電気的特性と機械的特性" class="anchor" href="#電気的特性と機械的特性" aria-hidden="true"></a>電気的特性と機械的特性</h2>
+            <h2><a id="user-content-電気的特性と機械的特性（再掲）" class="anchor" href="#電気的特性と機械的特性（再掲）" aria-hidden="true"></a>電気的特性と機械的特性（再掲）</h2>
 <p>$$
 \left\{ \begin{array}{rcl}
 v_a &amp;=&amp; R_a i_a + L_a \frac{di_a}{dt} + e_b \\
@@ -410,34 +372,17 @@ $v_a:$ 端子電圧，$i_a:$ 電流，$R_a:$ 電機子抵抗，$L_a:$ 電機子�
     
         <section >
             
-            <h2><a id="user-content-モータの運動方程式" class="anchor" href="#モータの運動方程式" aria-hidden="true"></a>モータの運動方程式</h2>
-<p>$L_a \frac{di_a}{dt} \approx 0$として近似<span style="font-size:24px;">（電気的反応は機械的反応に比べて十分速い）</span></p>
+            <h2><a id="user-content-伝達関数（1次遅れ系，0型）" class="anchor" href="#伝達関数（1次遅れ系，0型）" aria-hidden="true"></a>伝達関数（1次遅れ系，0型）</h2>
+<p>電気的反応の固有値$\ll$機械的反応の固有値を仮定<br />
+<span style="font-size:24px;">（電気的反応は機械的反応に比べて十分速い）</span></p>
 <p>$$
-J_m \ddot{\theta}_m + \bar{\mu}_m \dot{\theta}_m + \tau_L = \frac{k_t}{R_a} v_a
+I_a = \frac{1}{L_a s + R_a} V_a - \frac{1}{L_a s + R_a} D
 $$</p>
-<h3><a id="user-content-ギヤードモータの場合" class="anchor" href="#ギヤードモータの場合" aria-hidden="true"></a>ギヤードモータの場合</h3>
-<p>$$
-\bar{J}_g \ddot{\theta}_g + \bar{\mu}_g \dot{\theta}_g + \tau _{gL} = \frac{\bar{k_t}}{R_a} v_a
-$$
-ギヤードモータでも運動方程式の形は同じ．</p>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-伝達関数と標準形" class="anchor" href="#伝達関数と標準形" aria-hidden="true"></a>伝達関数と標準形</h2>
-<h3><a id="user-content-電圧→角度（2次遅れ系，1型）" class="anchor" href="#電圧→角度（2次遅れ系，1型）" aria-hidden="true"></a>電圧→角度（2次遅れ系，1型）</h3>
-<p>$$
-\frac{\Theta}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s^2 + R_a \bar{\mu}_g s} = \frac{K {\omega_n}^2}{s^2 + 2 \zeta \omega_n s + {\omega_n}^2}
-$$</p>
-<h3><a id="user-content-電圧→角速度（1次遅れ系，0型）" class="anchor" href="#電圧→角速度（1次遅れ系，0型）" aria-hidden="true"></a>電圧→角速度（1次遅れ系，0型）</h3>
-<p>$$
-\frac{\Omega}{V_a} = \frac{\bar{k_t}}{R_a \bar{J}_g s + R_a \bar{\mu}_g} = \frac{K}{Ts + 1}
-$$</p>
+<ul>
+<li>トルクは$\tau_m=k_t i_a$によって得られるものとし，$i_a$についてフィードバックする<br />
+（減速比$n$のギヤドモータの場合，末端のトルクは$\tau_g=n\tau_m=n k_t i_a$）</li>
+<li>$D(=e_b)$は未知外乱とする</li>
+</ul>
 
             </section>
     
@@ -448,165 +393,8 @@ $$</p>
         <section >
             
             <h2><a id="user-content-1次遅れ伝達関数のプラント同定" class="anchor" href="#1次遅れ伝達関数のプラント同定" aria-hidden="true"></a>1次遅れ伝達関数のプラント同定</h2>
-<img src="img/TimeTrans.png" style="width:40%;float:left;padding-left:100px;padding-right:100px;" /> 
-<div style="float:left;padding-top:50px;text-align:left;">
-$K: 定常ゲイン$<br />
-$T: 時定数$<br />
-$L: むだ時間$
-</div>
-<ul>
-<li>1次遅れ系ではステップ応答の$t=L$での接線と定常応答$y(\infty)=K$が交わる時間が時定数$T$</li>
-<li>$y(L+t)=K(1-e^{-1/T})$より$y(L+T)=0.63K$</li>
-</ul>
-<p>$\Downarrow$</p>
-<p><strong>プラント同定をしてみる</strong>（$K,T,L$を求める）</p>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-matlabsimulinkで確認" class="anchor" href="#matlabsimulinkで確認" aria-hidden="true"></a>MATLAB/Simulinkで確認</h2>
-<img src="img/Identification.png" style="width:80%;" />
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-pid制御系" class="anchor" href="#pid制御系" aria-hidden="true"></a>PID制御系</h2>
-<ul>
-<li>
-<p>並列形
-$$C _{Parallel}(s) = \left(K_P + \frac{1}{s} K_I + K_D s \right)$$</p>
-</li>
-<li>
-<p>イデアル形
-$$C _{Ideal}(s) = K_P \left(1 + \frac{1}{T_I s} + T_D s \right)$$</p>
-</li>
-</ul>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-パラメータの決め方" class="anchor" href="#パラメータの決め方" aria-hidden="true"></a>パラメータの決め方</h2>
-<ul>
-<li>（Ziegler-Nicholsの）限界感度法</li>
-<li>（Ziegler-Nicholsの）過渡応答法</li>
-<li><span style="color:red;text-decoration:underline;">CHR法</span></li>
-</ul>
-<h3><a id="user-content-chr法のパラメータ（目標値制御，os-0）" class="anchor" href="#chr法のパラメータ（目標値制御，os-0）" aria-hidden="true"></a>CHR法のパラメータ（目標値制御，OS 0%）</h3>
-<table>
-<thead>
-<tr>
-<th style="text-align:center" colspan="2">$K_P$</th>
-<th style="text-align:center">$T_I$</th>
-<th style="text-align:center">$T_D$</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">P</td>
-<td style="text-align:center">$0.3/RL$</td>
-<td style="text-align:center">$-$</td>
-<td style="text-align:center">$-$</td>
-</tr>
-<tr>
-<td style="text-align:center">PI</td>
-<td style="text-align:center">$0.35/RL$</td>
-<td style="text-align:center">$1.2T$</td>
-<td style="text-align:center">$-$</td>
-</tr>
-<tr>
-<td style="text-align:center">PID</td>
-<td style="text-align:center">$0.6/RL$</td>
-<td style="text-align:center">$T$</td>
-<td style="text-align:center">$0.5L$</td>
-</tr>
-</tbody>
-</table>
-<div class="ref"><a href="https://ja.wikipedia.org/wiki/PID%E5%88%B6%E5%BE%A1">Wikipedia PID制御</a></div>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-シミュレーションで確認" class="anchor" href="#シミュレーションで確認" aria-hidden="true"></a>シミュレーションで確認</h2>
-<img src="img/ClosedloopSim.png" />
-<p>$\Downarrow$</p>
-<h2><a id="user-content-実機で確認" class="anchor" href="#実機で確認" aria-hidden="true"></a>実機で確認</h2>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-参考資料" class="anchor" href="#参考資料" aria-hidden="true"></a>参考資料</h2>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-ロータリーエンコーダの動作" class="anchor" href="#ロータリーエンコーダの動作" aria-hidden="true"></a>ロータリーエンコーダの動作</h2>
-<img src="img/RotaryEncoder.png" style="width:60%;" />
-<br />
-<ul>
-<li>一定の角度ごとに生成されるパルスの数をカウントすることで角度を計測できる</li>
-<li>回転方向はA相とB相の位相により判別する</li>
-</ul>
-
-            </section>
-    
-
-
-
-    
-        <section >
-            
-            <h2><a id="user-content-prepostは何をしているのか" class="anchor" href="#prepostは何をしているのか" aria-hidden="true"></a>Pre/Postは何をしているのか</h2>
-<ul>
-<li>Pre
-<ul>
-<li>単位変換（入力バイアスの除去）</li>
-<li>物理値からD/A電圧への変換</li>
-<li>物理値からPWMへの変換</li>
-</ul>
-</li>
-<li>Post
-<ul>
-<li>A/D電圧から物理値への変換</li>
-<li>パルスから物理値への変換（Pulse→rad）</li>
-<li>単位変換</li>
-</ul>
-</li>
-<li>両方
-<ul>
-<li>状態に依存しない非線形要素の補償</li>
-</ul>
-</li>
-</ul>
+<p>T.B.D.</p>
+<p>MATLAB/Simulinkではサンプリング周期を1ms以下に設定できない？</p>
 
             </section>
     
